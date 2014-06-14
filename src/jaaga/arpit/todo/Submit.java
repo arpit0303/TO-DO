@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class Submit extends Activity {
 
 	DataBaseAdaptor db;
 	EditText title,note;
+	ImageButton back_todo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,7 @@ public class Submit extends Activity {
 		
 		title=(EditText) findViewById(R.id.editText1);
 		note=(EditText) findViewById(R.id.editText2);
+		back();
 	}
 
 	@Override
@@ -49,11 +53,20 @@ public class Submit extends Activity {
 		finish();
 	}
 	
-	public void back(View v){
-		Intent intent=new Intent();
-		intent.setClass(this, MainActivity.class);
-		startActivity(intent);
-		finish();
+	public void back(){
+		back_todo = (ImageButton) findViewById(R.id.imageButton1);
+		back_todo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent();
+				intent.setClass(getApplicationContext(), MainActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		
 	}
 
 }

@@ -9,5 +9,6 @@
     <string name="back">Back</string>
     <string name="title">Title</string>
     <string name="note">Note</string>
+    <string name="view_all">View All</string>
 
 </resources>

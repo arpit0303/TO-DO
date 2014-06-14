@@ -6,30 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/SkyBlue"
     tools:context=".Submit" >
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/title_activity_submit"
-        android:onClick="done" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="18dp"
-        android:ems="10" 
-        android:hint="@string/title"
-        android:textStyle="bold">
-
-        <requestFocus />
-    </EditText>
 
     <EditText
         android:id="@+id/editText2"
@@ -42,13 +20,32 @@
         android:inputType="textMultiLine"
         android:hint="@string/note" />
 
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:src="@drawable/back"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/back" />
+
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_toRightOf="@+id/button1"
-        android:text="@string/back" 
-        android:onClick="back"/>
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:onClick="done"
+        android:text="@string/title_activity_submit" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_below="@+id/imageButton1"
+        android:ems="10"
+        android:hint="@string/title"
+        android:textStyle="bold" />
 
 </RelativeLayout>
