@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DataBaseAdaptor {
@@ -26,11 +27,16 @@ public class DataBaseAdaptor {
 		return id;
 	}
 	
-	public String getAllData(){
+	public String[] getAllData(){
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
 		String[] columns={DataBase.TITLE,DataBase.NOTE};
-		StringBuffer buffer = new StringBuffer();
+		//StringBuffer buffer = new StringBuffer();
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
+		int count = cursor.getCount();
+		//Log.d("DB", "count: "+count);
+		
+		String[] display = new String[count+1]; 
+		int i=0;
 		while(cursor.moveToNext())
 		{
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
@@ -38,9 +44,11 @@ public class DataBaseAdaptor {
 			
 			String title = cursor.getString(index1);
 			String note = cursor.getString(index2);
-			buffer.append(title+"     "+note+"\n");	
+			//buffer.append(title+"     "+note+"\n");
+			display[i] = title+"   "+note; 
 		}
-		return buffer.toString();
+		//return buffer.toString();
+		return display;
 	}
 
 	static class DataBase extends SQLiteOpenHelper {

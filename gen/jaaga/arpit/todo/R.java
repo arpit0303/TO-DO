@@ -173,8 +173,8 @@ public final class R {
         public static final int button2=0x7f090001;
         public static final int editText1=0x7f090004;
         public static final int editText2=0x7f090003;
-        public static final int gridView1=0x7f090002;
         public static final int imageButton1=0x7f090000;
+        public static final int listView1=0x7f090002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

@@ -6,18 +6,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	ImageButton new_todo;
 	DataBaseAdaptor db;
+	//GridView mGrid;
+	ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         db=new DataBaseAdaptor(this);
+        //mGrid = (GridView) findViewById(R.id.gridView1);
+        mListView = (ListView) findViewById(R.id.listView1); 
+    	String[] data = db.getAllData();
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,data);
+    	//mGrid.setAdapter(adapter);
+    	mListView.setAdapter(adapter);
         newtodo();
     }
 
@@ -47,8 +59,12 @@ public class MainActivity extends Activity {
     }
     
     public void viewdetails(View v){
-    	String data=db.getAllData();
-    	Toast.makeText(this, data, Toast.LENGTH_LONG).show();
+    	//String data=db.getAllData();
+    	//String[] data = null;
+    	//data =db.getAllData();
+    	//ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,data);
+    	//mGrid.setAdapter(adapter);
+    	//Toast.makeText(this, data[0], Toast.LENGTH_LONG).show();
     }
     
 }
