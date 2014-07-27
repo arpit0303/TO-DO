@@ -168,13 +168,12 @@ public final class R {
         public static final int reminder=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f090006;
-        public static final int button1=0x7f090005;
+        public static final int action_settings=0x7f090005;
+        public static final int button1=0x7f090004;
         public static final int button2=0x7f090001;
-        public static final int editText1=0x7f090004;
-        public static final int editText2=0x7f090003;
+        public static final int editText1=0x7f090003;
+        public static final int editText2=0x7f090002;
         public static final int imageButton1=0x7f090000;
-        public static final int listView1=0x7f090002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -191,6 +190,7 @@ public final class R {
         public static final int hello_world=0x7f060002;
         public static final int newOpen=0x7f060003;
         public static final int note=0x7f060007;
+        public static final int submit_button=0x7f060009;
         public static final int title=0x7f060006;
         public static final int title_activity_submit=0x7f060004;
         public static final int view_all=0x7f060008;

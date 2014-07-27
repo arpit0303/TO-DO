@@ -22,15 +22,22 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageButton1"
         android:layout_toRightOf="@+id/imageButton1"
-        android:onClick="viewdetails"
         android:text="@string/view_all" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/imageButton1" >
     </ListView>
+    
+    <TextView 
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageButton1"
+        />
 
 </RelativeLayout>

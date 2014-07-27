@@ -6,15 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 public class DataBaseAdaptor {
 	
 	DataBase db;
+	public static String[] header;
 	
 	public DataBaseAdaptor(Context context) {
-		// TODO Auto-generated constructor stub
 		db=new DataBase(context);	
 	}
 	
@@ -27,16 +26,12 @@ public class DataBaseAdaptor {
 		return id;
 	}
 	
-	public String[] getAllData(){
+	public String getAllData(){
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
 		String[] columns={DataBase.TITLE,DataBase.NOTE};
-		//StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
-		int count = cursor.getCount();
-		//Log.d("DB", "count: "+count);
 		
-		String[] display = new String[count+1]; 
-		int i=0;
 		while(cursor.moveToNext())
 		{
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
@@ -44,11 +39,35 @@ public class DataBaseAdaptor {
 			
 			String title = cursor.getString(index1);
 			String note = cursor.getString(index2);
-			//buffer.append(title+"     "+note+"\n");
-			display[i] = title+"   "+note; 
+			buffer.append(title+"     "+note+"\n");
 		}
-		//return buffer.toString();
-		return display;
+		return buffer.toString();
+	}
+	
+	public void getNote(){
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		String[] columns={DataBase.NOTE};
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
+		int count = cursor.getCount();
+		
+		header = new String[count+1]; 
+		
+		while(cursor.moveToNext())
+		{
+			int index1 = cursor.getColumnIndex(DataBase.NOTE);
+			
+			String title = cursor.getString(index1);
+			header[cursor.getPosition()] = title;
+		}
+	}
+	
+	public int getCount(){
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		String[] columns={DataBase.TITLE,DataBase.NOTE};
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
+		int count = cursor.getCount();
+		
+		return count+1;
 	}
 
 	static class DataBase extends SQLiteOpenHelper {
@@ -68,14 +87,12 @@ public class DataBaseAdaptor {
 		public DataBase(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 			this.context = context;
-			//Toast.makeText(context, "Constructor", Toast.LENGTH_LONG).show();
 		}
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			try {
 				db.execSQL(CREATE_TABLE);
-				//Toast.makeText(context, "OnCreate", Toast.LENGTH_LONG).show();
 			} catch (SQLException e) {
 				Toast.makeText(context, "error" + e, Toast.LENGTH_LONG).show();
 			}
@@ -86,7 +103,6 @@ public class DataBaseAdaptor {
 			try {
 				db.execSQL(DROP_TABLE);
 				onCreate(db);
-				//Toast.makeText(context, "OnUpgrade", Toast.LENGTH_LONG).show();
 			} catch (SQLException e) {
 				Toast.makeText(context, "error" + e, Toast.LENGTH_LONG).show();
 			}
