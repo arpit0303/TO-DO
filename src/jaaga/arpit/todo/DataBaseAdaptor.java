@@ -30,6 +30,7 @@ public class DataBaseAdaptor {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
 		String[] columns={DataBase.TITLE,DataBase.NOTE};
 		StringBuffer buffer = new StringBuffer();
+		header = new String[getCount()];
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
 		
 		while(cursor.moveToNext())

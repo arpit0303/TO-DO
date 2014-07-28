@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -16,7 +17,6 @@ public class MainActivity extends ListActivity {
 	ImageButton new_todo;
 	DataBaseAdaptor db;
 	ListView mListView;
-	private Button viewAll;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +25,10 @@ public class MainActivity extends ListActivity {
 
 		db = new DataBaseAdaptor(this);
 
-		newtodo();
-		
-		viewAll = (Button) findViewById(R.id.button2);
-		viewAll.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, 
-						android.R.layout.simple_list_item_1, DataBaseAdaptor.header);
-				setListAdapter(adapter);
-			}
-		});
+		/*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				MainActivity.this, android.R.layout.simple_list_item_1,
+				DataBaseAdaptor.header);
+		setListAdapter(adapter);*/
 	}
 
 	@Override
@@ -46,19 +38,19 @@ public class MainActivity extends ListActivity {
 		return true;
 	}
 
-	public void newtodo() {
-		new_todo = (ImageButton) findViewById(R.id.imageButton1);
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.action_new:
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), Submit.class);
+			startActivity(intent);
 
-		new_todo.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(getApplicationContext(), Submit.class);
-				startActivity(intent);
-			}
-		});
-
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }
