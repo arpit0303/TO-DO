@@ -169,10 +169,9 @@ public final class R {
         public static final int reminder=0x7f020003;
     }
     public static final class id {
-        public static final int action_alldata=0x7f090003;
-        public static final int action_done=0x7f090005;
+        public static final int action_done=0x7f090004;
         public static final int action_new=0x7f090002;
-        public static final int action_settings=0x7f090004;
+        public static final int action_settings=0x7f090003;
         public static final int editText1=0x7f090001;
         public static final int editText2=0x7f090000;
     }
@@ -182,7 +181,8 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f080000;
-        public static final int submit=0x7f080001;
+        public static final int modify=0x7f080001;
+        public static final int submit=0x7f080002;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
@@ -193,6 +193,7 @@ public final class R {
         public static final int note=0x7f060007;
         public static final int submit_button=0x7f060009;
         public static final int title=0x7f060006;
+        public static final int title_activity_modify=0x7f06000a;
         public static final int title_activity_submit=0x7f060004;
         public static final int view_all=0x7f060008;
     }

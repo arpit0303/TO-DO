@@ -24,7 +24,16 @@
         </activity>
         <activity
             android:name="jaaga.arpit.todo.Submit"
-            android:label="@string/title_activity_submit" android:parentActivityName="jaaga.arpit.todo.MainActivity">
+            android:label="@string/title_activity_submit"
+            android:parentActivityName="jaaga.arpit.todo.MainActivity" >
+        </activity>
+        <activity
+            android:name="jaaga.arpit.todo.ModifyActivity"
+            android:label="@string/title_activity_modify"
+            android:parentActivityName="jaaga.arpit.todo.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jaaga.arpit.todo.MainActivity" />
         </activity>
     </application>
 

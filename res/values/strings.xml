@@ -11,5 +11,6 @@
     <string name="note">Note</string>
     <string name="view_all">View All</string>
     <string name="submit_button">Submit</string>
+    <string name="title_activity_modify">Item</string>
 
 </resources>

@@ -25,10 +25,10 @@ public class DataBaseAdaptor {
 		long id = sqlitedb.insert(DataBase.TABLE_NAME, null, contentvalues);
 		return id;
 	}
-
+	
 	public String getAllData() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns = { DataBase.TITLE, DataBase.NOTE };
+		String[] columns = { DataBase.TITLE, DataBase.NOTE,DataBase.UID };
 		StringBuffer buffer = new StringBuffer();
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
 				null, null, null, null);
@@ -36,16 +36,25 @@ public class DataBaseAdaptor {
 		while (cursor.moveToNext()) {
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
 			int index2 = cursor.getColumnIndex(DataBase.NOTE);
-
+			int index3 = cursor.getColumnIndex(DataBase.UID);
 			String title = cursor.getString(index1);
 			String note = cursor.getString(index2);
-			buffer.append(title + "     " + note + "\n");
-
+			String uid = cursor.getString(index3);
+			buffer.append(title+"   "+note+"  "+uid+"\n");
 		}
 		return buffer.toString();
 	}
+	
+	public long update(String title, String note,int position) {
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		ContentValues contentvalues = new ContentValues();
+		contentvalues.put(DataBase.TITLE, title);
+		contentvalues.put(DataBase.NOTE, note);
+		long id = sqlitedb.update(DataBase.TABLE_NAME, contentvalues, DataBase.UID+"="+position, null);
+		return id;
+	}
 
-	public String[] getNote() {
+	public String[] getTitle() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
 		String[] columns = { DataBase.TITLE };
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
@@ -56,6 +65,24 @@ public class DataBaseAdaptor {
 
 		while (cursor.moveToNext()) {
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
+
+			String title = cursor.getString(index1);
+				header[cursor.getPosition()] = title;
+		}
+		return header;
+	}
+	
+	public String[] getNote() {
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		String[] columns = {DataBase.NOTE};
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
+				null, null, null, null);
+		int count = cursor.getCount();
+
+		header = new String[count + 1];
+
+		while (cursor.moveToNext()) {
+			int index1 = cursor.getColumnIndex(DataBase.NOTE);
 
 			String title = cursor.getString(index1);
 				header[cursor.getPosition()] = title;
