@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ public class Submit extends Activity {
 
 	DataBaseAdaptor db;
 	EditText title,note;
+	long DBid;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +32,39 @@ public class Submit extends Activity {
 		return true;
 	}
 	
-	public void done(View v){
-		
-		String Title=title.getText().toString();
-		String Note=note.getText().toString();
-		
-		long id = db.insert(Title, Note);
-		if(id<0){
-			Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
-		}
-		else{
-			Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
-		}
-		
-		Intent intent=new Intent();
-		intent.setClass(this, MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
-	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.action_done:
+			String Title=title.getText().toString();
+			String Note=note.getText().toString();
+			
+			if(!(Title.isEmpty())){
+				DBid = db.insert(Title, Note);
+			}
+			else{
+				Toast.makeText(Submit.this, "Please enter the title", Toast.LENGTH_LONG).show();
+			}
+			if(DBid<0){
+				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
+			}
+			else{
+				Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
+			}
+			
+			Intent intent=new Intent();
+			intent.setClass(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			
+			break;
 
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+		
+	}
 }

@@ -9,66 +9,68 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 public class DataBaseAdaptor {
-	
+
 	DataBase db;
-	public static String[] header;
-	
+	public String[] header = null;
+
 	public DataBaseAdaptor(Context context) {
-		db=new DataBase(context);	
+		db = new DataBase(context);
 	}
-	
-	public long insert(String title, String note){
-		SQLiteDatabase sqlitedb=db.getWritableDatabase();
-		ContentValues contentvalues=new ContentValues();
+
+	public long insert(String title, String note) {
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		ContentValues contentvalues = new ContentValues();
 		contentvalues.put(DataBase.TITLE, title);
 		contentvalues.put(DataBase.NOTE, note);
 		long id = sqlitedb.insert(DataBase.TABLE_NAME, null, contentvalues);
 		return id;
 	}
-	
-	public String getAllData(){
+
+	public String getAllData() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns={DataBase.TITLE,DataBase.NOTE};
+		String[] columns = { DataBase.TITLE, DataBase.NOTE };
 		StringBuffer buffer = new StringBuffer();
-		header = new String[getCount()];
-		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
-		
-		while(cursor.moveToNext())
-		{
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
+				null, null, null, null);
+
+		while (cursor.moveToNext()) {
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
 			int index2 = cursor.getColumnIndex(DataBase.NOTE);
-			
+
 			String title = cursor.getString(index1);
 			String note = cursor.getString(index2);
-			buffer.append(title+"     "+note+"\n");
+			buffer.append(title + "     " + note + "\n");
+
 		}
 		return buffer.toString();
 	}
-	
-	public void getNote(){
+
+	public String[] getNote() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns={DataBase.NOTE};
-		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
+		String[] columns = { DataBase.TITLE };
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
+				null, null, null, null);
 		int count = cursor.getCount();
-		
-		header = new String[count+1]; 
-		
-		while(cursor.moveToNext())
-		{
-			int index1 = cursor.getColumnIndex(DataBase.NOTE);
-			
+
+		header = new String[count + 1];
+
+		while (cursor.moveToNext()) {
+			int index1 = cursor.getColumnIndex(DataBase.TITLE);
+
 			String title = cursor.getString(index1);
-			header[cursor.getPosition()] = title;
+				header[cursor.getPosition()] = title;
 		}
+		return header;
 	}
-	
-	public int getCount(){
+
+	public int getCount() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns={DataBase.TITLE,DataBase.NOTE};
-		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null, null, null, null, null);
+		String[] columns = { DataBase.TITLE, DataBase.NOTE };
+		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
+				null, null, null, null);
 		int count = cursor.getCount();
-		
-		return count+1;
+
+		return count + 1;
 	}
 
 	static class DataBase extends SQLiteOpenHelper {
