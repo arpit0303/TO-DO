@@ -1,10 +1,11 @@
-package jaaga.arpit.todo;
+package jaaga.arpit.todo.ui;
 
+import jaaga.arpit.todo.DataBaseAdaptor;
+import jaaga.arpit.todo.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -80,7 +81,7 @@ public class ModifyActivity extends Activity {
 				DBid = db.update(Title, Note, position+1);
 			}
 			else{
-				Toast.makeText(ModifyActivity.this, "Please enter the title", Toast.LENGTH_LONG).show();
+				Toast.makeText(ModifyActivity.this, "Please enter the field", Toast.LENGTH_LONG).show();
 			}
 			if(DBid<0){
 				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();

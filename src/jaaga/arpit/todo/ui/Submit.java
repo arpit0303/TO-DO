@@ -1,11 +1,13 @@
-package jaaga.arpit.todo;
+package jaaga.arpit.todo.ui;
 
+import jaaga.arpit.todo.DataBaseAdaptor;
+import jaaga.arpit.todo.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,11 +42,14 @@ public class Submit extends Activity {
 			String Title=title.getText().toString();
 			String Note=note.getText().toString();
 			
+			Log.i("Submit", Title+"   "+Note);
+			
 			if(!(Title.isEmpty())){
 				DBid = db.insert(Title, Note);
+				
 			}
 			else{
-				Toast.makeText(Submit.this, "Please enter the title", Toast.LENGTH_LONG).show();
+				Toast.makeText(Submit.this, "Please enter the fields", Toast.LENGTH_LONG).show();
 			}
 			if(DBid<0){
 				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();

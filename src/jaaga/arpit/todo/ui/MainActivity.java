@@ -1,41 +1,48 @@
-package jaaga.arpit.todo;
+package jaaga.arpit.todo.ui;
 
+import jaaga.arpit.todo.CustomAdapter;
+import jaaga.arpit.todo.DataBaseAdaptor;
+import jaaga.arpit.todo.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
 
-	ImageButton new_todo;
-	DataBaseAdaptor db;
+	private DataBaseAdaptor db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+	
 		db = new DataBaseAdaptor(this);
 		String[] data = db.getTitle();
-		String[] display = new String[data.length -1];
+		String[] data1 = db.getNote();
+		String[] title = new String[data.length -1];
+		String[] note = new String[data.length -1];
 		for(int i=0;i<data.length -1;i++){
-			display[i] = data[i];
+			title[i] = data[i];
+			note[i] = data1[i];
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+		CustomAdapter adapter = new CustomAdapter(this,title,note);
+		/*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				MainActivity.this, android.R.layout.simple_list_item_1,
 				display);
+		setListAdapter(adapter);*/
+		
 		setListAdapter(adapter);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
+		l.setBackgroundResource(R.color.light_purple_background);
 		Intent intent = new Intent(MainActivity.this, ModifyActivity.class);
 		intent.putExtra("position",position);
 		startActivity(intent);
@@ -59,6 +66,8 @@ public class MainActivity extends ListActivity {
 			break;
 
 		case R.id.action_settings:
+			String data = db.getAllData();
+			Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
 			break;
 
 		default:

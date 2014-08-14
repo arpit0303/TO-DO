@@ -3,7 +3,6 @@
 
     <string name="app_name">To Do</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="newOpen">NEW</string>
     <string name="title_activity_submit">New</string>
     <string name="back">Back</string>
@@ -11,6 +10,6 @@
     <string name="note">Note</string>
     <string name="view_all">View All</string>
     <string name="submit_button">Submit</string>
-    <string name="title_activity_modify">Item</string>
+    <string name="title_activity_modify">Submit</string>
 
 </resources>

@@ -23,6 +23,7 @@ public class DataBaseAdaptor {
 		contentvalues.put(DataBase.TITLE, title);
 		contentvalues.put(DataBase.NOTE, note);
 		long id = sqlitedb.insert(DataBase.TABLE_NAME, null, contentvalues);
+		db.close();
 		return id;
 	}
 	
@@ -42,7 +43,9 @@ public class DataBaseAdaptor {
 			String uid = cursor.getString(index3);
 			buffer.append(title+"   "+note+"  "+uid+"\n");
 		}
+		db.close();
 		return buffer.toString();
+		
 	}
 	
 	public long update(String title, String note,int position) {
@@ -51,6 +54,7 @@ public class DataBaseAdaptor {
 		contentvalues.put(DataBase.TITLE, title);
 		contentvalues.put(DataBase.NOTE, note);
 		long id = sqlitedb.update(DataBase.TABLE_NAME, contentvalues, DataBase.UID+"="+position, null);
+		db.close();
 		return id;
 	}
 
@@ -69,6 +73,7 @@ public class DataBaseAdaptor {
 			String title = cursor.getString(index1);
 				header[cursor.getPosition()] = title;
 		}
+		db.close();
 		return header;
 	}
 	
@@ -87,6 +92,7 @@ public class DataBaseAdaptor {
 			String title = cursor.getString(index1);
 				header[cursor.getPosition()] = title;
 		}
+		db.close();
 		return header;
 	}
 
@@ -97,6 +103,7 @@ public class DataBaseAdaptor {
 				null, null, null, null);
 		int count = cursor.getCount();
 
+		db.close();
 		return count + 1;
 	}
 

@@ -5,17 +5,19 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/reminder"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+         >
         <activity
-            android:name="jaaga.arpit.todo.MainActivity"
-            android:label="@string/app_name" >
+            android:name="jaaga.arpit.todo.ui.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|uiMode|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,14 +25,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="jaaga.arpit.todo.Submit"
+            android:name="jaaga.arpit.todo.ui.Submit"
             android:label="@string/title_activity_submit"
-            android:parentActivityName="jaaga.arpit.todo.MainActivity" >
+            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity"
+            android:configChanges="orientation|uiMode|screenSize" >
         </activity>
         <activity
-            android:name="jaaga.arpit.todo.ModifyActivity"
+            android:name="jaaga.arpit.todo.ui.ModifyActivity"
             android:label="@string/title_activity_modify"
-            android:parentActivityName="jaaga.arpit.todo.MainActivity" >
+            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity"
+            android:configChanges="orientation|uiMode|screenSize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jaaga.arpit.todo.MainActivity" />
