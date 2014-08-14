@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent" >
+    android:background="@android:color/transparent"
+    android:descendantFocusability="beforeDescendants" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,9 +11,8 @@
         android:layout_marginLeft="@dimen/list_horizontal_margin"
         android:layout_marginRight="@dimen/list_horizontal_margin"
         android:layout_marginTop="@dimen/list_vertical_margin"
-        android:background="@android:color/background_light" >
+        android:background="@drawable/selector_card_background" >
 
-        
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/title"
             android:layout_below="@id/title"
+            android:layout_marginBottom="@dimen/list_vertical_margin"
             android:hint="Note" />
     </RelativeLayout>
 
