@@ -6,6 +6,7 @@ import jaaga.arpit.todo.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +45,7 @@ public class MainActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		l.setBackgroundResource(R.color.light_purple_background);
 		Intent intent = new Intent(MainActivity.this, ModifyActivity.class);
-		intent.putExtra("position",position);
+		intent.putExtra("position", position);
 		startActivity(intent);
 	}
 

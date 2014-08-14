@@ -4,8 +4,10 @@ import jaaga.arpit.todo.DataBaseAdaptor;
 import jaaga.arpit.todo.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.cardemulation.CardEmulation;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ public class ModifyActivity extends Activity {
 	private EditText note;
 	private DataBaseAdaptor db;
 	long DBid;
+	private int ListitemID;
 	private int position;
 	private String[] preTitle;
 	private String[] preNote;
@@ -38,7 +41,9 @@ public class ModifyActivity extends Activity {
 		preNote = db.getNote();
 		
 		Intent intent = getIntent();
+		ListitemID = intent.getIntExtra("itemID", 0);
 		position = intent.getIntExtra("position", 0);
+		Log.i("Modify", " id "+ListitemID);
 		title.setText(preTitle[position]);
 		note.setText(preNote[position]);
 		
@@ -87,17 +92,30 @@ public class ModifyActivity extends Activity {
 				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
 			}
 			else{
-				Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "successfully Updated", Toast.LENGTH_LONG).show();
 			}
 			
-			Intent intent=new Intent();
-			intent.setClass(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
+			Intent intentUpdate=new Intent();
+			intentUpdate.setClass(this, MainActivity.class);
+			intentUpdate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intentUpdate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intentUpdate);
 			
 			break;
-
+		case R.id.action_delete:
+			int DB = db.delete(ListitemID);
+			if(DB<0){
+				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
+			}
+			else{
+				Toast.makeText(this, "successfully Deleted", Toast.LENGTH_LONG).show();
+			}
+			Intent intentDelete=new Intent();
+			intentDelete.setClass(this, MainActivity.class);
+			intentDelete.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intentDelete.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intentDelete);
+			break;
 		default:
 			break;
 		}

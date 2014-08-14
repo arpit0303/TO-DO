@@ -5,7 +5,6 @@ import jaaga.arpit.todo.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -21,7 +20,7 @@ public class Submit extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit);
-		db=new DataBaseAdaptor(this);
+		
 		
 		title=(EditText) findViewById(R.id.editText1);
 		note=(EditText) findViewById(R.id.editText2);
@@ -41,21 +40,20 @@ public class Submit extends Activity {
 		case R.id.action_done:
 			String Title=title.getText().toString();
 			String Note=note.getText().toString();
+			db=new DataBaseAdaptor(this);
 			
-			Log.i("Submit", Title+"   "+Note);
-			
-			if(!(Title.isEmpty())){
+			if(!(Title.isEmpty()) && !(Note.isEmpty())){
 				DBid = db.insert(Title, Note);
-				
 			}
-			else{
-				Toast.makeText(Submit.this, "Please enter the fields", Toast.LENGTH_LONG).show();
-			}
+			
 			if(DBid<0){
-				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Unsuccessful", Toast.LENGTH_LONG).show();
+			}
+			else if(DBid > 0){
+				Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
 			}
 			else{
-				Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Empty so Not Inserted", Toast.LENGTH_LONG).show();
 			}
 			
 			Intent intent=new Intent();

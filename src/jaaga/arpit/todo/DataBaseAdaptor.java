@@ -57,6 +57,12 @@ public class DataBaseAdaptor {
 		db.close();
 		return id;
 	}
+	
+	public int delete(int position){
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		int id = sqlitedb.delete(DataBase.TABLE_NAME, DataBase.UID+"="+position, null);
+		return id;
+	}
 
 	public String[] getTitle() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
@@ -104,7 +110,7 @@ public class DataBaseAdaptor {
 		int count = cursor.getCount();
 
 		db.close();
-		return count + 1;
+		return count;
 	}
 
 	static class DataBase extends SQLiteOpenHelper {
