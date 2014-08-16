@@ -12,5 +12,8 @@
     <string name="view_all">View All</string>
     <string name="submit_button">Submit</string>
     <string name="title_activity_modify">Submit</string>
+    <string name="list_item_note_hint">Note</string>
+    <string name="list_item_title_hint">Title</string>
+    
 
 </resources>

@@ -15,6 +15,7 @@ public class Submit extends Activity {
 	DataBaseAdaptor db;
 	EditText title,note;
 	long DBid;
+	public static int uid = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,15 @@ public class Submit extends Activity {
 			String Note=note.getText().toString();
 			db=new DataBaseAdaptor(this);
 			
-			if(!(Title.isEmpty()) && !(Note.isEmpty())){
-				DBid = db.insert(Title, Note);
+			if(!(Title.isEmpty()) || !(Note.isEmpty())){
+				DBid = db.insert(Title, Note, uid);
 			}
 			
 			if(DBid<0){
 				Toast.makeText(this, "Unsuccessful", Toast.LENGTH_LONG).show();
 			}
-			else if(DBid > 0){
-				Toast.makeText(this, "successfully Insert", Toast.LENGTH_LONG).show();
+			else if(DBid >= 0){
+				uid++;
 			}
 			else{
 				Toast.makeText(this, "Empty so Not Inserted", Toast.LENGTH_LONG).show();

@@ -12,12 +12,11 @@
         android:allowBackup="true"
         android:icon="@drawable/reminder"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-         >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="jaaga.arpit.todo.ui.MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|uiMode|screenSize" >
+            android:configChanges="orientation|uiMode|screenSize"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,19 +25,24 @@
         </activity>
         <activity
             android:name="jaaga.arpit.todo.ui.Submit"
+            android:configChanges="orientation|uiMode|screenSize"
             android:label="@string/title_activity_submit"
-            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity"
-            android:configChanges="orientation|uiMode|screenSize" >
+            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity" >
         </activity>
         <activity
             android:name="jaaga.arpit.todo.ui.ModifyActivity"
+            android:configChanges="orientation|uiMode|screenSize"
             android:label="@string/title_activity_modify"
-            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity"
-            android:configChanges="orientation|uiMode|screenSize" >
+            android:parentActivityName="jaaga.arpit.todo.ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jaaga.arpit.todo.MainActivity" />
         </activity>
+        <activity
+            android:name="jaaga.arpit.todo.SettingsActivity"
+            android:label="@string/title_activity_settings" android:parentActivityName="jaaga.arpit.todo.ui.MainActivity">
+        </activity>
+        
     </application>
 
 </manifest>

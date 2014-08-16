@@ -4,10 +4,8 @@ import jaaga.arpit.todo.DataBaseAdaptor;
 import jaaga.arpit.todo.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.nfc.cardemulation.CardEmulation;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -19,7 +17,6 @@ public class ModifyActivity extends Activity {
 	private EditText note;
 	private DataBaseAdaptor db;
 	long DBid;
-	private int ListitemID;
 	private int position;
 	private String[] preTitle;
 	private String[] preNote;
@@ -41,9 +38,7 @@ public class ModifyActivity extends Activity {
 		preNote = db.getNote();
 		
 		Intent intent = getIntent();
-		ListitemID = intent.getIntExtra("itemID", 0);
 		position = intent.getIntExtra("position", 0);
-		Log.i("Modify", " id "+ListitemID);
 		title.setText(preTitle[position]);
 		note.setText(preNote[position]);
 		
@@ -83,7 +78,7 @@ public class ModifyActivity extends Activity {
 			String Note=note.getText().toString();
 			
 			if(!(Title.isEmpty())){
-				DBid = db.update(Title, Note, position+1);
+				DBid = db.update(Title, Note, position);
 			}
 			else{
 				Toast.makeText(ModifyActivity.this, "Please enter the field", Toast.LENGTH_LONG).show();
@@ -103,12 +98,15 @@ public class ModifyActivity extends Activity {
 			
 			break;
 		case R.id.action_delete:
-			int DB = db.delete(ListitemID);
+			int DB = db.delete(position);
+			db.updateUID(position);
+			db.delete(db.getCount());
 			if(DB<0){
-				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Unsuccessful", Toast.LENGTH_LONG).show();
 			}
 			else{
 				Toast.makeText(this, "successfully Deleted", Toast.LENGTH_LONG).show();
+				Submit.uid--;
 			}
 			Intent intentDelete=new Intent();
 			intentDelete.setClass(this, MainActivity.class);
