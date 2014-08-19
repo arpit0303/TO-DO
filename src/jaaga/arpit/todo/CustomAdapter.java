@@ -1,14 +1,18 @@
 package jaaga.arpit.todo;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 public class CustomAdapter extends ArrayAdapter<String> {
@@ -17,6 +21,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
 	protected String[] mTitle;
 	protected String[] mNote;
 	protected int i = 0;
+	protected PopupMenu popup;
+	public TextToSpeech tts;
 
 	public CustomAdapter(Context context, String[] title, String[] note) {
 		super(context, R.layout.single_row, title);
@@ -27,36 +33,93 @@ public class CustomAdapter extends ArrayAdapter<String> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 
-		if(i < mTitle.length){
+		if (i < mTitle.length) {
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
 						R.layout.single_row, null);
 				holder = new ViewHolder();
-	
+
 				holder.title = (TextView) convertView.findViewById(R.id.title);
 				holder.note = (TextView) convertView.findViewById(R.id.todo);
 				holder.menu = (ImageView) convertView.findViewById(R.id.menu);
-	
+
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-	
+
 			holder.title.setText(mTitle[i]);
 			holder.note.setText(mNote[i]);
 			holder.menu.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
-				public void onClick(View v) {
-					PopupMenu popup = new PopupMenu(mContext, v);
-				    MenuInflater inflater = popup.getMenuInflater();
-				    inflater.inflate(R.menu.item_menu, popup.getMenu());
-				    popup.show();
+				public void onClick(final View v) {
+					popup = new PopupMenu(mContext, v);
+					MenuInflater inflater = popup.getMenuInflater();
+					inflater.inflate(R.menu.item_menu, popup.getMenu());
+
+					popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+						@Override
+						public boolean onMenuItemClick(MenuItem item) {
+							int id = item.getItemId();
+							switch (id) {
+							case R.id.action_del:
+								DataBaseAdaptor db = new DataBaseAdaptor(
+										mContext);
+								db.delete(position);
+								db.updateUID(position);
+								db.delete(db.getCount());
+								return true;
+
+							case R.id.action_listen:
+								tts = new TextToSpeech(mContext,
+										new OnInitListener() {
+
+											@Override
+											public void onInit(int status) {
+												if (status == TextToSpeech.SUCCESS) {
+													String mText;
+
+													if (mTitle[position]
+															.isEmpty()) {
+														mText = "Note is : "
+																+ mNote[position];
+													} else if (mNote[position]
+															.isEmpty()) {
+														mText = "Title is : "
+																+ mTitle[position];
+													} else {
+														mText = "Title is : "
+																+ mTitle[position]
+																+ " And note is : "
+																+ mNote[position];
+													}
+													tts.setSpeechRate((float) 0.8);
+													
+													tts.speak(
+															mText,
+															TextToSpeech.QUEUE_FLUSH,
+															null);
+													
+												}
+											}
+										});
+
+								return true;
+
+							default:
+								return false;
+							}
+						}
+					});
+					popup.show();
 				}
 			});
+
 			i++;
 		}
 		return convertView;
@@ -67,4 +130,5 @@ public class CustomAdapter extends ArrayAdapter<String> {
 		TextView note;
 		ImageView menu;
 	}
+
 }

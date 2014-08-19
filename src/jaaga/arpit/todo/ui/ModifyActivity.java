@@ -77,17 +77,15 @@ public class ModifyActivity extends Activity {
 			String Title=title.getText().toString();
 			String Note=note.getText().toString();
 			
-			if(!(Title.isEmpty())){
+			if(!(Title.isEmpty()) || !(Note.isEmpty())){
 				DBid = db.update(Title, Note, position);
 			}
 			else{
-				Toast.makeText(ModifyActivity.this, "Please enter the field", Toast.LENGTH_LONG).show();
+				Toast.makeText(ModifyActivity.this, "Please enter any field or delete it", Toast.LENGTH_SHORT).show();
 			}
+			
 			if(DBid<0){
 				Toast.makeText(this, "Unsuccessfull", Toast.LENGTH_LONG).show();
-			}
-			else{
-				Toast.makeText(this, "successfully Updated", Toast.LENGTH_LONG).show();
 			}
 			
 			Intent intentUpdate=new Intent();
@@ -95,8 +93,8 @@ public class ModifyActivity extends Activity {
 			intentUpdate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intentUpdate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intentUpdate);
-			
 			break;
+			
 		case R.id.action_delete:
 			int DB = db.delete(position);
 			db.updateUID(position);
@@ -104,16 +102,14 @@ public class ModifyActivity extends Activity {
 			if(DB<0){
 				Toast.makeText(this, "Unsuccessful", Toast.LENGTH_LONG).show();
 			}
-			else{
-				Toast.makeText(this, "successfully Deleted", Toast.LENGTH_LONG).show();
-				Submit.uid--;
-			}
+			
 			Intent intentDelete=new Intent();
 			intentDelete.setClass(this, MainActivity.class);
 			intentDelete.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intentDelete.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intentDelete);
 			break;
+			
 		default:
 			break;
 		}

@@ -28,10 +28,10 @@ public class DataBaseAdaptor {
 		db.close();
 		return id;
 	}
-	
+
 	public String getAllData() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns = { DataBase.TITLE, DataBase.NOTE,DataBase.UID};
+		String[] columns = { DataBase.TITLE, DataBase.NOTE, DataBase.UID };
 		StringBuffer buffer = new StringBuffer();
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
 				null, null, null, null);
@@ -43,36 +43,39 @@ public class DataBaseAdaptor {
 			String title = cursor.getString(index1);
 			String note = cursor.getString(index2);
 			String uid = cursor.getString(index3);
-			buffer.append(title+"   "+note+"  "+uid+"\n");
+			buffer.append(title + "   " + note + "  " + uid + "\n");
 		}
 		db.close();
 		return buffer.toString();
-		
+
 	}
-	
-	public long update(String title, String note,int position) {
+
+	public long update(String title, String note, int position) {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
 		ContentValues contentvalues = new ContentValues();
 		contentvalues.put(DataBase.TITLE, title);
 		contentvalues.put(DataBase.NOTE, note);
-		long id = sqlitedb.update(DataBase.TABLE_NAME, contentvalues, DataBase.UID+"="+position, null);
+		long id = sqlitedb.update(DataBase.TABLE_NAME, contentvalues,
+				DataBase.UID + "=" + position, null);
 		db.close();
 		return id;
 	}
-	
+
 	public void updateUID(int position) {
-		for(int i = position + 1; i <= getCount(); i++){
+		for (int i = position + 1; i <= getCount(); i++) {
 			SQLiteDatabase sqliteDB = db.getWritableDatabase();
 			ContentValues contentvalue = new ContentValues();
-			contentvalue.put(DataBase.UID, (i-1));
-			sqliteDB.update(DataBase.TABLE_NAME, contentvalue, DataBase.UID+"="+i, null);
+			contentvalue.put(DataBase.UID, (i - 1));
+			sqliteDB.update(DataBase.TABLE_NAME, contentvalue, DataBase.UID
+					+ "=" + i, null);
 		}
 		db.close();
 	}
-	
-	public int delete(int position){
+
+	public int delete(int position) {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		int id = sqlitedb.delete(DataBase.TABLE_NAME, DataBase.UID+"="+position, null);
+		int id = sqlitedb.delete(DataBase.TABLE_NAME, DataBase.UID + "="
+				+ position, null);
 		db.close();
 		return id;
 	}
@@ -90,15 +93,15 @@ public class DataBaseAdaptor {
 			int index1 = cursor.getColumnIndex(DataBase.TITLE);
 
 			String title = cursor.getString(index1);
-				header[cursor.getPosition()] = title;
+			header[cursor.getPosition()] = title;
 		}
 		db.close();
 		return header;
 	}
-	
+
 	public String[] getNote() {
 		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns = {DataBase.NOTE};
+		String[] columns = { DataBase.NOTE };
 		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
 				null, null, null, null);
 		int count = cursor.getCount();
@@ -109,21 +112,25 @@ public class DataBaseAdaptor {
 			int index1 = cursor.getColumnIndex(DataBase.NOTE);
 
 			String title = cursor.getString(index1);
-				header[cursor.getPosition()] = title;
+			header[cursor.getPosition()] = title;
 		}
 		db.close();
 		return header;
 	}
 
 	public int getCount() {
-		SQLiteDatabase sqlitedb = db.getWritableDatabase();
-		String[] columns = { DataBase.TITLE, DataBase.NOTE };
-		Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
-				null, null, null, null);
-		int count = cursor.getCount();
+		if (db != null) {
+			SQLiteDatabase sqlitedb = db.getWritableDatabase();
+			String[] columns = { DataBase.TITLE, DataBase.NOTE };
+			Cursor cursor = sqlitedb.query(DataBase.TABLE_NAME, columns, null,
+					null, null, null, null);
+			int count = cursor.getCount();
 
-		db.close();
-		return count+1;
+			db.close();
+			return count;
+		} else {
+			return 0;
+		}
 	}
 
 	static class DataBase extends SQLiteOpenHelper {
@@ -134,7 +141,7 @@ public class DataBaseAdaptor {
 		private static final String NOTE = "Note";
 		private static final int DATABASE_VERSION = 1;
 		private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
-				+ " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TITLE
+				+ " (" + UID + " INTEGER PRIMARY KEY," + TITLE
 				+ " VARCHAR(20)," + NOTE + " VARCHAR(255))";
 		private static final String DROP_TABLE = "DROP TABLE IF EXISTS"
 				+ TABLE_NAME;
@@ -147,12 +154,13 @@ public class DataBaseAdaptor {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			
+
 			try {
 				db.execSQL(CREATE_TABLE);
 				Log.i("DB", "On Create");
 			} catch (SQLException e) {
-				Toast.makeText(context, "On Create error" + e, Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "On Create error" + e,
+						Toast.LENGTH_LONG).show();
 			}
 		}
 
@@ -163,7 +171,8 @@ public class DataBaseAdaptor {
 				db.execSQL(DROP_TABLE);
 				onCreate(db);
 			} catch (SQLException e) {
-				Toast.makeText(context, "On Upgrade error" + e, Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "On Upgrade error" + e,
+						Toast.LENGTH_LONG).show();
 			}
 
 		}

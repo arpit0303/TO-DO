@@ -1,57 +1,53 @@
 package jaaga.arpit.todo.ui;
 
 import jaaga.arpit.todo.CustomAdapter;
-import jaaga.arpit.todo.CustomAdapter.ViewHolder;
 import jaaga.arpit.todo.DataBaseAdaptor;
 import jaaga.arpit.todo.R;
-import jaaga.arpit.todo.SettingsActivity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
 
 	private DataBaseAdaptor db;
+	private String[] title;
+	private String[] note;
+	CustomAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
+
 		db = new DataBaseAdaptor(this);
 		String[] data = db.getTitle();
 		String[] data1 = db.getNote();
-		String[] title = new String[data.length -1];
-		String[] note = new String[data.length -1];
-		for(int i=0;i<data.length -1;i++){
+		title = new String[data.length - 1];
+		note = new String[data.length - 1];
+		for (int i = 0; i < data.length - 1; i++) {
 			title[i] = data[i];
 			note[i] = data1[i];
 		}
-		CustomAdapter adapter = new CustomAdapter(this,title,note);
-		
-		/*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				MainActivity.this, android.R.layout.simple_list_item_1,
-				display);
-		setListAdapter(adapter);*/
+
+		adapter = new CustomAdapter(this, title, note);
 		setListAdapter(adapter);
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void onListItemClick(ListView l, final View v,
+			final int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		
-		l.setBackgroundResource(R.color.light_purple_background);
+
+		v.setBackgroundResource(R.color.light_purple_background);
 		Intent intent = new Intent(MainActivity.this, ModifyActivity.class);
 		intent.putExtra("position", position);
 		startActivity(intent);
+
 	}
 
 	@Override
@@ -71,14 +67,9 @@ public class MainActivity extends ListActivity {
 			startActivity(intent);
 			break;
 
-			
 		case R.id.action_settings:
 			String data = db.getAllData();
 			Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
-			
-			Intent SettingsIntent = new Intent();
-			SettingsIntent.setClass(getApplicationContext(), SettingsActivity.class);
-			startActivity(SettingsIntent);
 			break;
 
 		default:
@@ -87,4 +78,12 @@ public class MainActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(adapter.tts != null){
+			adapter.tts.stop();
+			adapter.tts.shutdown();
+		}
+	}
 }

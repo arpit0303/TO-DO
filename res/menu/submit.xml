@@ -5,6 +5,7 @@
         android:showAsAction="always"
         android:title="@string/submit_button">
     </item>
-    <item android:id="@+id/action_settings" android:showAsAction="never" android:title="@string/action_settings"></item>
+    <item android:id="@+id/action_speak" android:showAsAction="always" android:title="Speak" android:icon="@drawable/speak"></item><item android:id="@+id/action_settings" android:showAsAction="never" android:title="@string/action_settings"></item>
+    
 
 </menu>

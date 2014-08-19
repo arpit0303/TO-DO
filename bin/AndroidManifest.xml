@@ -10,9 +10,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/reminder"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Todo" >
         <activity
             android:name="jaaga.arpit.todo.ui.MainActivity"
             android:configChanges="orientation|uiMode|screenSize"
@@ -38,10 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jaaga.arpit.todo.MainActivity" />
         </activity>
-        <activity
-            android:name="jaaga.arpit.todo.SettingsActivity"
-            android:label="@string/title_activity_settings" android:parentActivityName="jaaga.arpit.todo.ui.MainActivity">
-        </activity>
+        
         
     </application>
 
