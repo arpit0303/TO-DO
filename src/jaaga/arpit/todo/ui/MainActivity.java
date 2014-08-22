@@ -67,10 +67,10 @@ public class MainActivity extends ListActivity {
 			startActivity(intent);
 			break;
 
-		case R.id.action_settings:
+		/*case R.id.action_settings:
 			String data = db.getAllData();
 			Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
-			break;
+			break;*/
 
 		default:
 			break;

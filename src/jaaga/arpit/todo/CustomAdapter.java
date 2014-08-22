@@ -20,7 +20,6 @@ public class CustomAdapter extends ArrayAdapter<String> {
 	protected Context mContext;
 	protected String[] mTitle;
 	protected String[] mNote;
-	protected int i = 0;
 	protected PopupMenu popup;
 	public TextToSpeech tts;
 
@@ -36,7 +35,6 @@ public class CustomAdapter extends ArrayAdapter<String> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 
-		if (i < mTitle.length) {
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
 						R.layout.single_row, null);
@@ -51,8 +49,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			holder.title.setText(mTitle[i]);
-			holder.note.setText(mNote[i]);
+			holder.title.setText(mTitle[position]);
+			holder.note.setText(mNote[position]);
 			holder.menu.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -120,8 +118,6 @@ public class CustomAdapter extends ArrayAdapter<String> {
 				}
 			});
 
-			i++;
-		}
 		return convertView;
 	}
 
