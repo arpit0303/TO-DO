@@ -74,10 +74,10 @@ public class ModifyActivity extends Activity {
 			NavUtils.navigateUpFromSameTask(this);
 			break;
 		case R.id.action_done:
-			String Title=title.getText().toString();
-			String Note=note.getText().toString();
+			String Title=title.getText().toString().trim();
+			String Note=note.getText().toString().trim();
 			
-			if(!(Title.isEmpty()) || !(Note.isEmpty())){
+			if(!(Title.isEmpty()) || !(Note.isEmpty())){ 
 				DBid = db.update(Title, Note, position);
 			}
 			else{

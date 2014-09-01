@@ -38,8 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jaaga.arpit.todo.MainActivity" />
         </activity>
-        
-        
+        <activity
+            android:name="jaaga.arpit.todo.ui.MainGridActivity"
+            android:label="@string/title_activity_main_grid" >
+        </activity>
     </application>
 
 </manifest>

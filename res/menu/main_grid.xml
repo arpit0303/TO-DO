@@ -7,8 +7,8 @@
         android:title="@string/title_activity_submit">
     </item>
     <item
-        android:id="@+id/action_gridView"
-        android:title="@string/menu_multiline_column">
+        android:id="@+id/action_listView"
+        android:title="@string/menu_singalline_column">
     </item>
 
 </menu>

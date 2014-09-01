@@ -46,8 +46,8 @@ public class Submit extends Activity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.action_done:
-			String Title = title.getText().toString();
-			String Note = note.getText().toString();
+			String Title = title.getText().toString().trim();
+			String Note = note.getText().toString().trim();
 			db = new DataBaseAdaptor(this);
 
 			if (!(Title.isEmpty()) || !(Note.isEmpty())) {

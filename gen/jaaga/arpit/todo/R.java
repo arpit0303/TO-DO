@@ -70,43 +70,51 @@ public final class R {
         public static final int tab_unselected_todo=0x7f020027;
     }
     public static final class id {
+        public static final int Grdititle=0x7f090003;
         public static final int action_del=0x7f090007;
-        public static final int action_delete=0x7f09000b;
-        public static final int action_done=0x7f09000a;
-        public static final int action_listen=0x7f090005;
+        public static final int action_delete=0x7f09000c;
+        public static final int action_done=0x7f09000b;
+        public static final int action_gridView=0x7f090009;
+        public static final int action_listView=0x7f09000a;
+        public static final int action_listen=0x7f090006;
         public static final int action_new=0x7f090008;
-        public static final int action_settings=0x7f090009;
-        public static final int action_share=0x7f090006;
-        public static final int action_speak=0x7f09000c;
-        public static final int editText1=0x7f090001;
-        public static final int editText2=0x7f090000;
-        public static final int menu=0x7f090003;
-        public static final int title=0x7f090002;
-        public static final int todo=0x7f090004;
+        public static final int action_speak=0x7f09000d;
+        public static final int editText1=0x7f090002;
+        public static final int editText2=0x7f090001;
+        public static final int grid=0x7f090000;
+        public static final int menu=0x7f090004;
+        public static final int todo=0x7f090005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int activity_submit=0x7f030001;
-        public static final int single_row=0x7f030002;
+        public static final int activity_main_grid=0x7f030001;
+        public static final int activity_submit=0x7f030002;
+        public static final int grid_row=0x7f030003;
+        public static final int single_row=0x7f030004;
     }
     public static final class menu {
         public static final int item_menu=0x7f080000;
         public static final int main=0x7f080001;
-        public static final int modify=0x7f080002;
-        public static final int submit=0x7f080003;
+        public static final int main_grid=0x7f080002;
+        public static final int modify=0x7f080003;
+        public static final int submit=0x7f080004;
     }
     public static final class string {
         public static final int action_delete=0x7f060002;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int back=0x7f060005;
+        public static final int hello_world=0x7f060011;
         public static final int list_item_note_hint=0x7f06000b;
         public static final int list_item_title_hint=0x7f06000c;
         public static final int menu_listen=0x7f06000d;
+        public static final int menu_multiline_column=0x7f06000e;
+        public static final int menu_singalline_column=0x7f06000f;
         public static final int newOpen=0x7f060003;
         public static final int note=0x7f060007;
         public static final int submit_button=0x7f060009;
         public static final int title=0x7f060006;
+        public static final int title_activity_main_grid=0x7f060010;
         public static final int title_activity_modify=0x7f06000a;
         public static final int title_activity_submit=0x7f060004;
         public static final int view_all=0x7f060008;

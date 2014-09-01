@@ -15,7 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
-public class CustomAdapter extends ArrayAdapter<String> {
+public class GridAdapter extends ArrayAdapter<String> {
 
 	protected Context mContext;
 	protected String[] mTitle;
@@ -23,8 +23,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
 	protected PopupMenu popup;
 	public TextToSpeech tts;
 
-	public CustomAdapter(Context context, String[] title, String[] note) {
-		super(context, R.layout.single_row, title);
+	public GridAdapter(Context context, String[] title, String[] note) {
+		super(context, R.layout.grid_row, title);
 		mContext = context;
 		mTitle = title;
 		mNote = note;
@@ -37,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.single_row, null);
+						R.layout.grid_row, null);
 				holder = new ViewHolder();
 
 				holder.title = (TextView) convertView.findViewById(R.id.Grdititle);

@@ -13,6 +13,7 @@ public class DataBaseAdaptor {
 
 	DataBase db;
 	public String[] header = null;
+	public Boolean gridView = null;
 
 	public DataBaseAdaptor(Context context) {
 		db = new DataBase(context);
@@ -27,6 +28,21 @@ public class DataBaseAdaptor {
 		long id = sqlitedb.insert(DataBase.TABLE_NAME, null, contentvalues);
 		db.close();
 		return id;
+	}
+	
+	public long insertGridView(Boolean columnView){
+		SQLiteDatabase sqlitedb = db.getWritableDatabase();
+		ContentValues contentvalues = new ContentValues();
+		contentvalues.put(DataBase.GRID, columnView);
+		long grid = sqlitedb.insert(DataBase.TABLE_2_NAME, null, contentvalues);
+		db.close();
+		if(grid>0){
+			gridView = true;
+		}
+		else{
+			gridView = false;
+		}
+		return grid;
 	}
 
 	public String getAllData() {
@@ -69,6 +85,14 @@ public class DataBaseAdaptor {
 			sqliteDB.update(DataBase.TABLE_NAME, contentvalue, DataBase.UID
 					+ "=" + i, null);
 		}
+		db.close();
+	}
+
+	public void updateGrid(Boolean column) {
+		SQLiteDatabase sqliteDB = db.getWritableDatabase();
+		ContentValues contentvalue = new ContentValues();
+		contentvalue.put(DataBase.GRID, column);
+		sqliteDB.update(DataBase.TABLE_NAME, contentvalue, null, null);
 		db.close();
 	}
 
@@ -145,6 +169,14 @@ public class DataBaseAdaptor {
 				+ " VARCHAR(20)," + NOTE + " VARCHAR(255))";
 		private static final String DROP_TABLE = "DROP TABLE IF EXISTS"
 				+ TABLE_NAME;
+		
+		private static final String TABLE_2_NAME = "GRIDCOLUMN";
+		private static final String GRID = "GridView";
+		private static final String CREATE_TABLE_2 = "CREATE TABLE " + TABLE_2_NAME
+				+ " (" + GRID + "BOOLEAN)";
+		private static final String DROP_TABLE_2 = "DROP TABLE IF EXISTS"
+				+ TABLE_2_NAME;
+		
 		private Context context;
 
 		public DataBase(Context context) {
@@ -157,6 +189,7 @@ public class DataBaseAdaptor {
 
 			try {
 				db.execSQL(CREATE_TABLE);
+				db.execSQL(CREATE_TABLE_2);
 				Log.i("DB", "On Create");
 			} catch (SQLException e) {
 				Toast.makeText(context, "On Create error" + e,
@@ -169,6 +202,7 @@ public class DataBaseAdaptor {
 			Log.i("DB", "On Upgrade");
 			try {
 				db.execSQL(DROP_TABLE);
+				db.execSQL(DROP_TABLE_2);
 				onCreate(db);
 			} catch (SQLException e) {
 				Toast.makeText(context, "On Upgrade error" + e,
